@@ -1,0 +1,13 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - '../:/app'
+      - './nginx/conf.d:/etc/nginx/conf.d'
+    ports:
+      - 80:80
+
+  php:
+    image: php:8.1-fpm
+    volumes:
+      - '../:/app'
