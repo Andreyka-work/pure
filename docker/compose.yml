@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   nginx:
     image: nginx:latest
@@ -5,9 +7,9 @@ services:
       - '../:/app'
       - './nginx/conf.d:/etc/nginx/conf.d'
     ports:
-      - 80:80
+      - '80:80'
 
   php:
-    image: php:8.1-fpm
+    image: php:8.2-fpm-alpine
     volumes:
       - '../:/app'
