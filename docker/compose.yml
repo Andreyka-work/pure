@@ -10,6 +10,17 @@ services:
       - '80:80'
 
   php:
-    image: php:8.2-fpm-alpine
+    build:
+      context: './php'
     volumes:
       - '../:/app'
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
