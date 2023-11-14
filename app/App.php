@@ -17,31 +17,21 @@ function getTransactionFiles(string $dirPath): array
     return $filesPath;
 }
 
-function getTotalIncome(array $transactions): float
+function calculateTotals(array $transactions): array
 {
-    $sum = 0;
+    $totals = ['income' => 0, 'expense' => 0, 'netTotal' => 0];
 
-    array_walk($transactions, function ($item) use (&$sum) {
-        $sum += max($item['amount'], 0);
-    });
+    foreach ($transactions as $transaction) {
+        $totals['netTotal'] += $transaction['amount'];
 
-    return $sum;
-}
+        if ($transaction['amount'] >= 0) {
+            $totals['income'] += $transaction['amount'];
+        } else {
+            $totals['expense'] += $transaction['amount'];
+        }
+    }
 
-function getTotalExpense(array $transactions): float
-{
-    $sum = 0;
-
-    array_walk($transactions, function ($item) use (&$sum) {
-        $sum += min($item['amount'], 0);
-    });
-
-    return $sum;
-}
-
-function getNetTotal(float $income, float $expense): float
-{
-    return abs($income) - abs($expense);
+    return $totals;
 }
 
 function getTransactions(string $filePath): array

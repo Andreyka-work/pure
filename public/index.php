@@ -17,8 +17,6 @@ foreach ($filesPaths as $filePath) {
     $transactions = array_merge($transactions, getTransactions($filePath));
 }
 
-$totalIncome = getTotalIncome($transactions);
-$totalExpense = getTotalExpense($transactions);
-$netTotal = getNetTotal($totalIncome, $totalExpense);
+$totals = calculateTotals($transactions);
 
 require VIEWS_PATH . 'transactions.php';
