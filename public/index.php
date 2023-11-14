@@ -1,9 +1,24 @@
 <?php
 
-try {
-    $dbh = new PDO('mysql:host=mysql', 'root', 'pass');
-    $dbh->exec("CREATE DATABASE pure;");
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
-    die();
+declare(strict_types=1);
+
+$root = dirname(__DIR__) . DIRECTORY_SEPARATOR;
+
+\define('APP_PATH', $root . 'app' . DIRECTORY_SEPARATOR);
+\define('FILES_PATH', $root . 'transaction_files' . DIRECTORY_SEPARATOR);
+\define('VIEWS_PATH', $root . 'views' . DIRECTORY_SEPARATOR);
+
+require_once APP_PATH . 'App.php';
+
+$filesPaths = getTransactionFiles(FILES_PATH);
+
+$transactions = [];
+foreach ($filesPaths as $filePath) {
+    $transactions = array_merge($transactions, getTransactions($filePath));
 }
+
+$totalIncome = getTotalIncome($transactions);
+$totalExpense = getTotalExpense($transactions);
+$netTotal = getNetTotal($totalIncome, $totalExpense);
+
+require VIEWS_PATH . 'transactions.php';
