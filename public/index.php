@@ -2,10 +2,25 @@
 
 declare(strict_types=1);
 
-use App\DebtCollectionService;
-use App\Rocky;
+use App\AllInOneCoffeeMaker;
+use App\CappuccinoMaker;
+use App\CoffeeMaker;
+use App\LatteMaker;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$collector = new DebtCollectionService();
-echo $collector->collectDebt(new Rocky());
+$coffeeMaker = new CoffeeMaker();
+$coffeeMaker->makeCoffee();
+
+$latteMaker = new LatteMaker();
+$latteMaker->makeCoffee();
+$latteMaker->makeLatte();
+
+$cappuccinoMaker = new CappuccinoMaker();
+$cappuccinoMaker->makeCoffee();
+$cappuccinoMaker->makeCappuccino();
+
+$allInOnCoffeeMaker = new AllInOneCoffeeMaker();
+$allInOnCoffeeMaker->makeCoffee();
+$allInOnCoffeeMaker->makeLatte();
+$allInOnCoffeeMaker->makeCappuccino();
